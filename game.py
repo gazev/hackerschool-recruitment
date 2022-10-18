@@ -15,7 +15,7 @@ class Game:
         ''' 
         Returns True if player doesn't have credits left
         '''
-        return True if self.__player.get_credits() == 0 else False
+        return not self.__player.get_credits() # o python converte valores para bool falso se estes forem zero null ou uma collection vazia
 
     def play_round(self, bet):
         '''
@@ -55,9 +55,10 @@ class Game:
         '''
         # print prizes info
         print("\nPrizes: ")
-        for k, v in SlotMachine.get_symbols_dic().items():
-            print(f"{k}: {v}x")
+        print(*(f"{k}: {v}x" for k,v in SlotMachine.get_symbols_dic().items()), sep='\n') #Using a generator can also work, but it's a personal preference
+        # for k, v in SlotMachine.get_symbols_dic().items():
+        #     print(f"{k}: {v}x")
 
     def __str__(self):
-        return self.__slot.__str__() + "\n" + self.__player.__str__() + "\n"
+        return f"{self.__slot}\n{self.__player}\n" #using an fstring here seems better and more readable
     
